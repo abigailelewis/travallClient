@@ -1,6 +1,8 @@
-export class Login {
+export class User {
+    id: number;
     email: string;
     username: string; 
     password: string; 
     color: string;
+    token: string;
 }
