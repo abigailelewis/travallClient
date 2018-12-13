@@ -1,7 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule  }    from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { routing} from './app-routing.module';
+import { Routes, RouterModule } from '@angular/router';
 
-import { AppRoutingModule } from './app-routing.module';
+
+// import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CrewComponent } from './crew/crew.component';
 import { NavComponent } from './nav/nav.component';
@@ -14,6 +19,13 @@ import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
 import { AuthComponent } from './auth/auth.component';
 import { AboutComponent } from './about/about.component';
+import { AlertComponent } from './alert/alert.component';
+import { AuthGuard } from './help/auth.guard';
+import { JwtInterceptor } from './help/jwt.interceptor';
+import { ErrorInterceptor } from './help/error.interceptor';
+import { AlertService  } from './services/alert.service';
+import {  AuthService } from './services/auth.service';
+import {  UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -28,13 +40,27 @@ import { AboutComponent } from './about/about.component';
     SignupComponent,
     LoginComponent,
     AuthComponent,
-    AboutComponent
+    AboutComponent,
+    AlertComponent,
+    
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    ReactiveFormsModule,
+    routing,
+    HttpClientModule,
+    
   ],
-  providers: [],
+  providers: [,
+        AuthGuard,
+        AlertService,
+        AuthService,
+        UserService,
+        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+      
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+

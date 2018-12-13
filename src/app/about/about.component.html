@@ -1,3 +1,13 @@
-<p>
-  about works!
-</p>
+
+<h1> Welcome to Travall</h1>
+
+
+<h1>Hi {{currentUser.username}}!</h1>
+<p>You're logged in Travall</p>
+<h3>All registered users:</h3>
+<ul>
+    <li *ngFor="let user of users">
+        {{user.username}} 
+        - <a (click)="deleteUser(user.id)" class="text-danger">Delete</a>
+    </li>
+</ul>
