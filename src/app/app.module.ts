@@ -49,6 +49,13 @@ import {  UserService } from './services/user.service';
     ReactiveFormsModule,
     routing,
     HttpClientModule,
+    // RouterModule.forRoot([
+    //   { 
+    //     path: '',
+    //     component: AboutComponent,
+    //     canActivate: [AuthGuard],	
+    //   }
+    //   ])
     
   ],
   providers: [,

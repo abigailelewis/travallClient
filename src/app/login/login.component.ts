@@ -23,12 +23,14 @@ export class LoginComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private alertService: AlertService,
-        private authService: AuthService) {
-            if (this.authService.currentUserValue) { 
-                this.router.navigate(['/']);
-            }
+        private authService: AuthService) {}
+        
+        // {
+        //     if (this.authService.currentUser) { 
+        //         this.router.navigate(['/']);
+        //     }
 
-        }
+        // }
 
 
     ngOnInit() {
@@ -39,12 +41,19 @@ export class LoginComponent implements OnInit {
 
        
         // this.authService.logout();
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/about';
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
 
     get f() { return this.loginForm.controls; }
-  
+
+
+//   redirect(){
+//       if (this.authService.currentUser) { 
+//         this.router.navigate(['/about']);
+//     }
+
+//   }
 
     onSubmit() {
         this.submitted = true;
@@ -58,8 +67,9 @@ export class LoginComponent implements OnInit {
         this.authService.login(this.f.username.value, this.f.password.value)
             .pipe(first())
             .subscribe(
-                data => {
-                    this.router.navigate([this.returnUrl]);
+                data => { this.router.navigate(['/about'])
+                    // this.redirect()
+                    // this.router.navigate([this.returnUrl]);
                 },
                 error => {
                     this.alertService.error(error);
